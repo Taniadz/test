@@ -106,7 +106,6 @@ def comment_add(request):
         comment = form.save()
         messages.success(request, "The object has been modified.")
         if request.is_ajax():
-            print(1111)
             data = {
                 "text": comment.text,
                 "user": str(comment.author),

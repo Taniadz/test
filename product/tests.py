@@ -37,16 +37,16 @@ class TestComment(TestCase):
         self.assertIn(com.text.encode(), resp.content)
 
     def test_valid_form(self):
-        com = Comment.objects.create(text=u'some', product=self.product,
+        com = Comment.objects.create(text='some', product=self.product,
                                      author=User.objects.create_user(username='test_user2'))
-        data = {u'text': com.text, u'product': str(com.product.id), u'author': com.author}
+        data = {'text': com.text, 'product': str(com.product.id), 'author': com.author, 'slug': str(com.product.slug)}
         form = CommentForm(data=data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_form(self):
-        com = Comment.objects.create(text=u'', product=self.product,
+        com = Comment.objects.create(text='', product=self.product,
                                      author=User.objects.create_user(username='test_user2'))
-        data = {u'text': com.text, u'product': str(com.product.id), u'author': com.author}
+        data = {'text': com.text, 'product': str(com.product.id), 'author': com.author}
         form = CommentForm(data=data)
         self.assertFalse(form.is_valid())
 
