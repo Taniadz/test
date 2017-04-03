@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>{% block title %}Fashionpress an E-Commerce online Shopping Category Flat Bootstarp responsive Website
+        Template| 404 :: w3layouts{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Fashionpress Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    {% block head_js %}
+        <script type="text/javascript" src={% static "js/jquery-1.8.3.min.js" %}></script>
+    {% endblock %}
+
+    {% block head_css %}
+        <link href={% static "css/bootstrap.css" %} rel='stylesheet' type='text/css'/>
+        <link href={% static "css/style.css" %} rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900' rel='stylesheet'
+              type='text/css'>
+    {% endblock %}
+</head>
+<body>
+{% block header %}
+    <div class="header">
+    <div class="header_top">
+        <div class="container">
+            <div class="logo">
+                <a href={% url "product" %}><img src={% static "images/logo.png" %} alt=""/></a>
+            </div>
+            <ul class="shopping_grid">
+                <div class="clearfix"></div>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block sidebar %}
+    <div class="h_menu4"><!-- start h_menu4 -->
+        <div class="container">
+            <a class="toggleMenu" href="#">Menu</a>
+            <ul class="nav">
+                {% if user.is_authenticated %}
+                    <li><a href={% url "logout" %} data-hover="About Us">Log out</a></li>
+                {% else %}
+                    <li><a href={% url "login" %} data-hover="Home">Log in</a></li>
+                    <li><a href={% url "signup" %} data-hover="Careers">Sign up</a></li>
+                {% endif %}
+            </ul>
+            <script type="text/javascript" src={% static "js/nav.js" %}></script>
+        </div>
+    </div>
+
+{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}
+    <div class="footer_bg">
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-4 f_grid1">
+                <h3>About</h3>
+                <img src={% static "images/logo.png" %} alt=""/>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                    industry's standard dummy text ever since the 1500s,</p>
+            </div>
+            <div class="col-md-4 f_grid1 f_grid2">
+                <h3>Follow Us</h3>
+                <ul class="social">
+                    <li><a href=""> <i class="fb"> </i>
+                        <p class="m_3">Facebook</p>
+                        <div class="clearfix"></div>
+                    </a></li>
+                    <li><a href=""><i class="tw"> </i>
+                        <p class="m_3">Twittter</p>
+                        <div class="clearfix"></div>
+                    </a></li>
+                    <li><a href=""><i class="google"> </i>
+                        <p class="m_3">Google</p>
+                        <div class="clearfix"></div>
+                    </a></li>
+                    <li><a href=""><i class="instagram"> </i>
+                        <p class="m_3">Instagram</p>
+                        <div class="clearfix"></div>
+                    </a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 f_grid3">
+                <h3>Contact Info</h3>
+                <ul class="list">
+                    <li><p>Phone : number</p></li>
+                    <li><p>Fax : number</p></li>
+                    <li><p>Email : <a href="mail@mail</a></p></li>
+			</ul>
+			<ul class=" list1">
+                    <li><p>Aliquam augue a bibendum ipsum diam, semper porttitor libero elit egestas gravida, ut quam,
+                        nunc taciti</p></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_bottom">
+
+        <div class="copy">
+            <p>&copy; Powered by Django</p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    </div>
+
+{% endblock %}
+
+</body>
+</html>

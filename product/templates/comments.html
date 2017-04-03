@@ -1,0 +1,15 @@
+{% block comments %}
+    <h2>Comments:</h2>
+    {% for comment in comments %}
+        <div>
+            <p id="comment_inf">
+                Comment by {{ comment.author }} [{{ comment.added_at }}]
+            </p>
+            <p id="comment_text">
+                {{ comment.text|linebreaks }}
+            </p>
+        </div>
+    {% empty %}
+        <p>There are no comments yet.</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Products {% endblock %}
+
+{% block content %}
+    <div class="main">
+        <div class="content_top">
+            <div class="container">
+                <center>
+                    <div class="col-md-12 content_right">
+                        <p>
+                        <h1>Our products</h1></p>
+                        <a href={% url "product" %}?sort_by=votes>
+                            <div class="btn btn-primary btn-normal btn-inline " target="_self" title="Get It">Sort by
+                                rating
+                            </div>
+                        </a>
+                        <div class="top_grid2">
+                            {% for product in products %}
+                                <div class="col-md-4 top_grid1-box1"><a
+                                        href="{% url "one_product" slug=product.slug %}">
+
+                                    <div class="grid_1">
+                                        <div class="b-link-stroke b-animate-go  thickbox">
+                                            <img src="{{ product.image.url }}" class="img-responsive" alt=""/></div>
+                                        <div class="grid_2">
+                                            <p> {{ product.description }}</p>
+                                            <ul class="grid_2-bottom">
+                                                <h2><img src={% static "images/heart.png" %} alt="" width="30"/>
+                                </a>&nbsp;{{ product.votes }} </h2>
+                                    <li class="grid_2-left">
+                                        <p>${{ product.price }}
+                                            <small>.00</small>
+                                        </p>
+                                    </li>
+                                    <li class="grid_2-right"><a href="{% url "one_product" slug=product.slug %}">
+                                        <div class="btn btn-primary btn-normal btn-inline " target="_self"
+                                             title="Get It">{{ product.name }}</div>
+                                    </>
+                                    </li>
+                                    <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                                </div>
+                                </a></div>
+                            {% endfor %}
+
+            </div>
+        </div>
+        {% include "pagination.html" %}
+
+        <center>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+
+

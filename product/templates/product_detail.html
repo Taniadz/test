@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block head_js %}
+    {{ block.super }}
+    <script type="text/javascript" src={% static "js/hover_pack.js" %}></script>
+{% endblock %}
+
+{% block head_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href={% static "css/etalage.css" %}>
+    <link rel="stylesheet" href={% static "css/message.css" %}>
+{% endblock %}
+
+{% block content %}
+
+    <div class="main">
+        <div class="content_top">
+            <div class="container">
+                <div class="col-md-3 sidebar_box">
+                    <div class="sidebar" id="comments-container">
+                        {% include "comments.html" %}
+                    </div>
+                </div>
+                <div class="col-md-9 single_right">
+                    <h2> Click to vote <a href={% url "product_vote" pk=one_product.id slug=one_product.slug %}><img
+                            src={% static "images/like.png" %} alt="" width="50"/></a>&nbsp;{{ one_product.votes }}
+                    </h2>
+                    <div class="grid images_3_of_2">
+                        {% if one_product.image %}
+                            <img src="{{ one_product.image.url }}"/>
+                        {% endif %}
+                    </div>
+                    <div class="single_top">
+                        <div class="single_grid">
+                            <div class="desc1 span_3_of_2">
+                                <center>
+                                    <h1> {{ one_product.name }}  </h1>
+                                    <p class="availability">Availability: <span class="color">In stock</span></p>
+                                    <div class="price_single">
+
+                                        <span class="actual">${{ one_product.price }}</span>
+                                    </div>
+                                    <h2 class="quick">Discription:</h2>
+                                    <p class="quick_desc">{{ one_product.description }}</p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% block comments_ask %}
+                        <h3>Your comment:</h3>
+                        {% if user.is_authenticated %}
+                            <div class="col-md-12 login-right">
+                                {% for e in form.non_field_errors %}
+                                    <div class="alert alert-danger"> {{ e }} </div>
+                                {% endfor %}
+                                <center>
+                                    <form id="com_form" action="{% url "comment_add" %}" method="POST">
+                                        <fieldset>
+                                            {% csrf_token %}
+                                            <div class="form-group{% if form.errors %} alert{% endif %}">
+                                                {{ form.text }}
+                                                {{ form.product.as_hidden }}
+                                                {{ form.slug.as_hidden }}
+                                                <div class="has-error">
+                                                    {{ form.errors }}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="register-but">
+                                            <input type="submit" value="Add comment">
+                                        </div>
+                                    </form>
+                                </center>
+                            </div>
+                        {% else %}
+                            <p>Please login to comment this page.</p>
+                        {% endif %}
+                    {% endblock %}
+
+                    <div id="messages-container">
+                        {% include "messages.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+    <script type="text/javascript" language="javascript">
+        jQuery(document).ready(function () {
+            function highlightAndHide() {
+                oMsgContainer = jQuery('div#messages-container');
+                oMsgContainer.show();
+                jQuery('li', oMsgContainer).each(function () {
+                    var li = jQuery(this);
+                    var opts = {'background-color': '#feae00', 'color': '#ffffff', 'border-color': '#000000'};
+                    var orig = {
+                        'background-color': li.css('background-color'),
+                        'color': li.css('color'),
+                        'border-color': li.css('border-color')
+                    };
+                });
+
+                setTimeout(function () {
+                    oMsgContainer.hide();
+                }, 4000);
+            };
+            $("#com_form").submit(function (form) {
+                $.ajax({
+                    type: "POST",
+                    url: $("#com_form").attr('action'),
+                    data: $("#com_form").serialize(),
+                    success: function (data) {
+                        $("#comments-container").html(data.comments);
+                        $("#messages-container").html(data.messages)
+                        highlightAndHide();
+                        $('#com_form textarea').val("");
+                    },
+                    error: function (xhr, str) {
+                        alert('Mistake ' + xhr.responseCode);
+                    }
+                });
+                form.preventDefault();
+            });
+            highlightAndHide();
+        });
+    </script>
+
+{% endblock %}
+

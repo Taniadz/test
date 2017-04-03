@@ -51,7 +51,7 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
+#local_settings.py
 
 # Flask stuff:
 instance/
@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+.idea/
+db.sqlite3

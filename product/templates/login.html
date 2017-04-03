@@ -1,0 +1,35 @@
+<html lang="en">
+
+{% extends "base.html" %}
+<html lang="en">
+{% block title %}{{ login }}{% endblock %}
+{% block content %}
+
+    <div class="container">
+
+        <div class="col-md-9 login-right">
+
+            <p>If you have an account with us, please log in.</p>
+            {% for e in form.non_field_errors %}
+                <div> {{ e }} </div>
+            {% endfor %}
+            <form method="post" action={% url "login" %}>
+                {% csrf_token %}
+                <h3>LOGIN INFORMATION</h3>
+                {% for field in form %}
+                    <div {% if field.errors %} alert{% endif %}>
+                        <span>{{ field.label }}<label></label></span>
+                        {{ field }} {{ field.errors }}
+                    </div>
+                {% endfor %}
+                <div class="register-but">
+                    <input type="submit" value="submit">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+
